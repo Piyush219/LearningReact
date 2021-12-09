@@ -1,7 +1,7 @@
 //import ExpenseItem from "./ExpenseItem";
 import React, { useState } from "react";
 import "./ExpenseForm.css";
-function ExpenseForm() {
+function ExpenseForm(props) {
   const [enteredTitle, setEnteredTitle] = useState(" ");
   const [enteredDate, setEnteredDate] = useState(" ");
   const [enteredAmount, setEnteredAmount] = useState(" ");
@@ -45,7 +45,12 @@ function ExpenseForm() {
       amount: enteredAmount,
       date: new Date(enteredDate)
     };
-    console.log(expenseData)
+
+    // console.log(expenseData)
+    props.onSaveExpenseData(expenseData);
+    setEnteredTitle('');
+    setEnteredAmount('');
+    setEnteredDate('');
   }
   return (
     <form onSubmit={submitHandler}>
@@ -54,7 +59,8 @@ function ExpenseForm() {
           <label>Expense Title:</label>
           <input
             type="text"
-            placeholder="Expense Title"
+            //placeholder="Expense Title"
+            value={enteredTitle}
             onChange={titleChangeHandler}
           />
         </div>
@@ -64,7 +70,8 @@ function ExpenseForm() {
             type="number"
             min="0.01"
             step="0.01"
-            placeholder="Expense Amount"
+            //placeholder="Expense Amount"
+           value={enteredAmount}
             onChange={amountChangeHandler}
           />
         </div>
@@ -74,6 +81,7 @@ function ExpenseForm() {
             type="date"
             min="2019-01-01"
             max="2022-12-31"
+           value={enteredDate}
             onChange={dateChangeHandler}
           ></input>
         </div>
