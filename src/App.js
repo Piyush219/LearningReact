@@ -1,43 +1,58 @@
 import Expenses from "./components/Expenses/Expenses";
-import ExpenseItem from "./components/Expenses/ExpenseItem";
+//import ExpenseItem from "./components/Expenses/ExpenseItem";
 import NewExpense from "./components/NewExpense/NewExpense";
-const App = () => {
-  const expenses = [
-    {
-      id: "e1",
-      title: "Toilet Paper",
-      amount: 94.12,
-      date: new Date(2020, 7, 14),
-      location: 'House'
-    },
-    { id: "e2", title: "New TV", amount: 799.49, date: new Date(2021, 2, 12), location: 'House' },
-    {
-      id: "e3",
-      title: "Car Insurance",
-      amount: 294.67,
-      date: new Date(2021, 2, 28),
-      location: 'Car'
-    },
-    {
-      id: "e4",
-      title: "New Desk (Wooden)",
-      amount: 450,
-      date: new Date(2021, 5, 12),
-      location: 'Office'
-    },
-  ];
+import React, { useState } from "react";
 
-  const addExpenseHandler = expense =>{
-    console.log('In App.js');
-    //console.log(expense);
+const DummyExpenses = [
+  {
+    id: "e1",
+    title: "Toilet Paper",
+    amount: 94.12,
+    date: new Date(2020, 7, 14),
+    // location: "House",
+  },
+  {
+    id: "e2",
+    title: "New TV",
+    amount: 799.49,
+    date: new Date(2021, 2, 12),
+    // location: "House",
+  },
+  {
+    id: "e3",
+    title: "Car Insurance",
+    amount: 294.67,
+    date: new Date(2021, 2, 28),
+    // location: "Car",
+  },
+  {
+    id: "e4",
+    title: "New Desk (Wooden)",
+    amount: 450,
+    date: new Date(2021, 5, 12),
+    // location: "Office",
+  },
+];
+
+const App = () => {
+  const [expenses, setExpenses] = useState(DummyExpenses);
+
+  const addExpenseHandler = (expense) => {
+    // console.log("In App.js");
+    console.log(expense);
+    //setExpense([expense,...expenses])
+    setExpenses((prevExpenses) => {
+      return [expense, ...prevExpenses];
+    });
     //console.log(expense.title);
-    <ExpenseItem title={expense.title} amount ={expense.amount} date ={expense.date}/>
-  }
+    //<ExpenseItem title={expense.title} amount ={expense.amount} date ={expense.date}/>
+  };
+
   return (
     <div>
-      <NewExpense onAddExpense={addExpenseHandler}/>
-      
-      <Expenses items = {expenses} />
+      <NewExpense onAddExpense={addExpenseHandler} />
+
+      <Expenses items={expenses} />
       {/* {
       expenses.map((item)=> {
         return(
@@ -49,6 +64,6 @@ const App = () => {
       <ExpenseItem title={expenses[3].title} amount ={expenses[3].amount} date ={expenses[3].date} location ={expenses[3].location}></ExpenseItem> */}
     </div>
   );
-}
+};
 
 export default App;
